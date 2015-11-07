@@ -25,6 +25,11 @@ var pieceColors = []termbox.Attribute{
 }
 
 // Layout
+const stretchFactor = 2
+
+const widthRatio = 1
+const heightRatio = 1.6
+
 const defaultMarginWidth = 2
 const defaultMarginHeight = 1
 const titleStartX = defaultMarginWidth
@@ -33,9 +38,11 @@ const titleHeight = 1
 const titleEndY = titleStartY + titleHeight
 const boardStartX = defaultMarginWidth
 const boardStartY = titleEndY + defaultMarginHeight
-const boardWidth = 10
-const boardHeight = 16
-const cellWidth = 2
+
+const boardWidth = 10 * widthRatio * stretchFactor
+const boardHeight = boardWidth * heightRatio * stretchFactor
+
+const cellWidth = 2 * widthRatio * stretchFactor
 const boardEndX = boardStartX + boardWidth*cellWidth
 const boardEndY = boardStartY + boardHeight
 const instructionsStartX = boardEndX + defaultMarginWidth
@@ -72,7 +79,12 @@ func render(g *Game) {
 			absCellValue := int(math.Abs(float64(cellValue)))
 			cellColor := pieceColors[absCellValue]
 			for i := 0; i < cellWidth; i++ {
-				termbox.SetCell(boardStartX+cellWidth*x+i, boardStartY+y, ' ', cellColor, cellColor)
+				termbox.SetCell(
+					boardStartX+cellWidth*x+i,
+					boardStartY+y,
+					' ',       // rune
+					cellColor, // fg
+					cellColor /*bg*/)
 			}
 		}
 	}

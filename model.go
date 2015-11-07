@@ -91,7 +91,7 @@ func (g *Game) resetGame() {
 	g.dy = []int{0, 0, 0, 0}
 	g.dxPrime = []int{0, 0, 0, 0}
 	g.dyPrime = []int{0, 0, 0, 0}
-	g.skyline = boardHeight - 1
+	g.skyline = boardHeight*stretchFactor - 1
 
 	g.fallingTimer = time.NewTimer(time.Duration(1000000 * time.Second))
 	g.fallingTimer.Stop()
